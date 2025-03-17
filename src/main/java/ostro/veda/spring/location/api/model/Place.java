@@ -10,7 +10,7 @@ public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "place_id")
-    private int id;
+    private int placeId;
 
     @ManyToOne
     @JoinColumn(name = "address_id", nullable = false, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Address {
+public class AddressDto {
 
     private String cep;
     private String logradouro;

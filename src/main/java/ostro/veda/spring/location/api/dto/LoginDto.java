@@ -3,8 +3,8 @@ package ostro.veda.spring.location.api.dto;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Place {
+public class LoginDto {
 
-    private Address address;
-    private List<User> userList;
+    private username;
+    private password;
 }

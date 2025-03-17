@@ -12,27 +12,22 @@ public class MainController {
     @Autowired
     CepService cepService;
 
-    @PostMapping("/login")
-    public String getAddress(@RequestBody Login login) {
-        return userService.login(login);
-    }
-
     @PostMapping("/register")
-    public String getAddress(@RequestBody User user) {
-        return userService.login(user);
+    public String register(@RequestBody UserDto userDto) {
+        return userService.login(userDto);
     }
 
     @PostMapping("/places")
-    public String getAddress() {
-        return placeService.add(user);
+    public String addPlace(@RequestBody PlaceDto placeDto) {
+        return userService.addPlace(placeDto);
     }
 
     @GetMapping("/places")
-    public String getAddress() {
-        return placeService.getPlace(user);
+    public String getPlace() {
+        return userService.getPlace();
     }
 
-    @GetMapping("/{cep}")
+    @GetMapping("/cep/{cep}")
     public String getAddress(@PathVariable("cep") String cep) {
         return cepService.getAddress(cep);
     }
