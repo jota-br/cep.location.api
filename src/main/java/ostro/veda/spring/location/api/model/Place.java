@@ -9,14 +9,13 @@ public class Place {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "place_id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "addressId", nullable = false, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "address_id", nullable = false, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Address address;
 
-    @ManyToOne
-    @JoinColumn(name = "userId", nullable = false, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private User user;
+    @ManyToMany(mappedBy = "visitedPlaces")
+    private List<User> users = new ArrayList<>();
 }
