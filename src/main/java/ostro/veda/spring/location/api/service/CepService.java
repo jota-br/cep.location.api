@@ -10,7 +10,7 @@ public class CepService {
 
     private final String BASE_URL = "https://viacep.com.br/ws/";
 
-    public String getAddress(String cep) {
+    public AddressDto getAddress(String cep) {
 
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(BASE_URL + cep + "/json/").newBuilder();
@@ -22,9 +22,15 @@ public class CepService {
                 .build();
         Call call = client.newCall(request);
         try (Response response = call.execute()) {
+
             ResponseBody responseBody = response.body();
             if (responseBody == null) return null;
-            return responseBody.string();
+
+            String jsonResponse = responseBody.string();
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(jsonResponse, AddressDto.class);
+            
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

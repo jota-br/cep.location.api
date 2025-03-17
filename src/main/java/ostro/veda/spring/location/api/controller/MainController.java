@@ -14,25 +14,21 @@ public class MainController {
     CepService cepService;
     @Autowired
     UserService userService;
+    @Autowired
+    PlaceService placeService;
 
     @PostMapping("/register")
-    public String register(@RequestBody UserDto userDto) {
-//        return userService.register(userDto);
-        return null;
+    public String register(@RequestBody UserRegisterDto userRegisterDto) {
+        return userService.register(userRegisterDto);
     }
 
-    @PostMapping("/places")
-    public String addPlace(@RequestBody PlaceDto placeDto) {
-        return userService.addPlace(placeDto).toString();
+    @PostMapping("/places/{cep}")
+    public String addPlace(@PathVariable("cep") String cep) {
+        return placeService.addPlace(cep).toString();
     }
 
     @GetMapping("/places")
     public String getPlace() {
-        return userService.getPlace().toString();
-    }
-
-    @GetMapping("/cep/{cep}")
-    public String getAddress(@PathVariable("cep") String cep) {
-        return cepService.getAddress(cep);
+        return placeService.getPlace().toString();
     }
 }

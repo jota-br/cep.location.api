@@ -17,72 +17,36 @@ import java.util.List;
 @Service
 public class UserService {
 
+    private final CepService cepService;
     private final UserRepository userRepository;
     private final PlaceRepository placeRepository;
 
-    public UserService(UserRepository userRepository, PlaceRepository placeRepository) {
+    @Autowired
+    public UserService(CepService cepService, UserRepository userRepository, PlaceRepository placeRepository) {
+        this.cepService = cepService;
         this.userRepository = userRepository;
         this.placeRepository = placeRepository;
     }
 
-    public User register(UserDto userDto) {
-        User user = userRepository.findByUsername(userDto.getUsername());
+    public User register(UserRegisterDto userRegisterDto) {
+        User user = userRepository.findByUsername(userRegisterDto.getUsername());
         if (user == null) user = buildUser(userDto);
         else return null;
         return userRepository.save(user);
     }
 
-    public Place addPlace(PlaceDto placeDto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            User user = userRepository.findByUsername(username);
-
-            Place place = buildPlace(placeDto)
-                    .setUsers(List.of(user));
-
-            return placeRepository.save(place);
-        }
-        return null;
-    }
-
-    public Place getPlace() {
+    public List<Place> getPlace() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
+            return userRepository.findVisitedPlacesByUsername(username);
         }
-
-        return null;
+        return List.of();
     }
 
-    private User buildUser(UserDto userDto) {
+    private User buildUser(UserRegisterDto userRegisterDto) {
         return new User()
-                .setUserId(userDto.getUserId())
                 .setPassword(userDto.getPassword())
                 .setUsername(userDto.getUsername());
-    }
-
-    private Place buildPlace(PlaceDto placeDto) {
-        return new Place()
-                .setPlaceId(placeDto.getPlaceId())
-                .setAddress(buildAddress(placeDto.getAddressDto()));
-    }
-
-    private Address buildAddress(AddressDto addressDto) {
-        return new Address()
-                .setCep(addressDto.getCep())
-                .setLogradouro(addressDto.getLogradouro())
-                .setComplemento(addressDto.getComplemento())
-                .setUnidade(addressDto.getUnidade())
-                .setBairro(addressDto.getBairro())
-                .setLocalidade(addressDto.getLocalidade())
-                .setUf(addressDto.getUf())
-                .setEstado(addressDto.getEstado())
-                .setRegiao(addressDto.getRegiao())
-                .setIbge(addressDto.getIbge())
-                .setGia(addressDto.getGia())
-                .setDdd(addressDto.getDdd())
-                .setSiafi(addressDto.getSiafi());
     }
 }

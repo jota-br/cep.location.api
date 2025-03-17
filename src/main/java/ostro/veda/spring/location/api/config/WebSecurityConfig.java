@@ -28,14 +28,10 @@ public class WebSecurityConfig {
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/register").permitAll()
-                        .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/places").hasRole("USERS")
-                        .requestMatchers("/cep").hasRole("USERS")
                         .anyRequest().authenticated()
         ).httpBasic(httpSecurityHttpBasicConfigurer -> {
-        })
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
-                .headers(headers -> headers.frameOptions(frameOptionsConfig -> {}));;
+        });
         return http.build();
     }
 }
