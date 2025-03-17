@@ -21,14 +21,10 @@ public class CepService {
                 .url(url)
                 .build();
         Call call = client.newCall(request);
-        try {
-            Response response = call.execute();
-
-            String body = response.body().string();
-
-            response.close();
-
-            return body;
+        try (Response response = call.execute()) {
+            ResponseBody responseBody = response.body();
+            if (responseBody == null) return null;
+            return responseBody.string();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
