@@ -1,10 +1,20 @@
-package ostro.veda.spring.location.api.dto;
+package ostro.veda.spring.location.api.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.Accessors;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
+@Builder
+@Accessors(chain = true)
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "app_user")
 public class User {
 
     @Id
@@ -25,4 +35,8 @@ public class User {
         inverseJoinColumns = @JoinColumn(name = "place_id")
     )
     private List<Place> visitedPlaces = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 }

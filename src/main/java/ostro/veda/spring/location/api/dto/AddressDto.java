@@ -9,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AddressDto {
 
+    private int addressId;
     private String cep;
     private String logradouro;
     private String complemento;

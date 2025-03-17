@@ -1,12 +1,15 @@
-package ostro.veda.spring.location.api.dto;
+package ostro.veda.spring.location.api.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 @Getter
 @Setter
+@Builder
+@Accessors(chain = true)
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "address")
 public class Address {
