@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "00c17767-2592-4946-b319-965b1061c43e",
+		"name": "spring.location.api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35187533"
+	},
+	"item": [
+		{
+			"name": "/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"john\",\n    \"password\": \"123\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/places",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "john",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/places/89204440",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"places",
+						"89204440"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

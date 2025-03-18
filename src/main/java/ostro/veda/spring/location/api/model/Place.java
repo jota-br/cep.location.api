@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 import java.util.ArrayList;
 import java.util.List;
 
+@ToString
 @Getter
 @Setter
 @Builder
@@ -26,6 +27,7 @@ public class Place {
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
+    @ToString.Exclude
     @ManyToMany(mappedBy = "visitedPlaces")
     private List<User> users = new ArrayList<>();
 }

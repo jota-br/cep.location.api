@@ -10,7 +10,7 @@
     </parent>
     <groupId>ostro.veda</groupId>
     <artifactId>spring.location.api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>spring.location.api</name>
     <description>DIO Spring Project Challenge</description>
     <url/>

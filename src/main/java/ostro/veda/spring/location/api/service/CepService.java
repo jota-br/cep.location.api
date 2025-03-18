@@ -1,9 +1,13 @@
 package ostro.veda.spring.location.api.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.springframework.stereotype.Service;
+import ostro.veda.spring.location.api.dto.AddressDto;
+import ostro.veda.spring.location.api.util.BusinessException;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 public class CepService {
@@ -21,17 +25,19 @@ public class CepService {
                 .url(url)
                 .build();
         Call call = client.newCall(request);
+
         try (Response response = call.execute()) {
 
             ResponseBody responseBody = response.body();
-            if (responseBody == null) return null;
+            if (responseBody == null || !response.isSuccessful()) throw new BusinessException("Something went wrong");
 
-            String jsonResponse = responseBody.string();
+            String jsonResponse = Optional.of(responseBody.string())
+                    .orElseThrow(() -> new BusinessException("No Address found with CEP ", cep));
 
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(jsonResponse, AddressDto.class);
             
-        } catch (IOException e) {
+        } catch (IOException | IllegalStateException e) {
             throw new RuntimeException(e);
         }
     }

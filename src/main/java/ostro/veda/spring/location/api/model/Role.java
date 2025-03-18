@@ -6,6 +6,7 @@ import lombok.experimental.Accessors;
 
 import java.util.Set;
 
+@ToString
 @Getter
 @Setter
 @Builder
@@ -22,8 +23,9 @@ public class Role {
     private int roleId;
 
     @Column(name = "name")
-    private int name;
+    private String name;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<User> users;
 }

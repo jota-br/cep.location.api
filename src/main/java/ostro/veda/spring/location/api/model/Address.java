@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
 
+@ToString
 @Getter
 @Setter
 @Builder
